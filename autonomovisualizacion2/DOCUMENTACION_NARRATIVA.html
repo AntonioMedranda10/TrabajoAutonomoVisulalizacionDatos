@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Migración Global de Millonarios - Narrativa con Datos</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3 { color: #1a73e8; margin-top: 30px; }
+        h1 { border-bottom: 3px solid #1a73e8; padding-bottom: 10px; }
+        h2 { margin-top: 40px; border-left: 4px solid #1a73e8; padding-left: 15px; }
+        .section { background: white; padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #1a73e8; color: white; }
+        ul, ol { margin: 10px 0; }
+        li { margin: 8px 0; }
+        .highlight { background-color: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; margin: 15px 0; border-radius: 4px; }
+        .stat { font-size: 24px; font-weight: bold; color: #1a73e8; }
+        code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; }
+        .page-break { page-break-after: always; }
+        .footer { text-align: center; color: #999; font-size: 12px; margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; }
+    </style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="section" style="text-align: center; background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%); color: white; padding: 60px 20px;">
+    <h1 style="border: none; color: white; margin: 0;">Migración Global de Millonarios</h1>
+    <h2 style="color: #fff; border: none; padding: 0; margin: 10px 0;">Data Storytelling 2025</h2>
+    <p style="font-size: 16px; margin: 20px 0;">Análisis Interactivo de Flujos de Capital y Migración de Ultra-Riqueza (2013-2026)</p>
+    <p style="font-size: 12px; opacity: 0.8;">27 de enero de 2026</p>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ÍNDICE -->
+<div class="section">
+    <h2>Índice de Contenidos</h2>
+    <ol>
+        <li><a href="#introduccion">Introducción</a></li>
+        <li><a href="#dataset">Descripción del Dataset</a></li>
+        <li><a href="#tecnologias">Herramientas y Tecnologías</a></li>
+        <li><a href="#narrativa">Narrativa con Datos</a></li>
+        <li><a href="#visualizaciones">Visualizaciones</a></li>
+        <li><a href="#resultados">Resultados y Conclusiones</a></li>
+    </ol>
+</div>
+
+<div class="page-break"></div>
+
+<!-- 1. INTRODUCCIÓN -->
+<div class="section" id="introduccion">
+    <h2>1. Introducción</h2>
+    
+    <h3>Contexto del Fenómeno</h3>
+    <p>La migración de millonarios es un fenómeno geoeconómico crucial del siglo XXI. A diferencia de migraciones históricas, esta se caracteriza por el desplazamiento de <strong>capital, inversión y talento empresarial</strong> entre naciones. Los datos revelan tendencias claras:</p>
+    <ul>
+        <li><strong>Concentración de riqueza:</strong> El 1% más rico controla más del 30% del capital global</li>
+        <li><strong>Flujos internacionales:</strong> Millonarios se trasladan buscando estabilidad política, beneficios fiscales y oportunidades de inversión</li>
+        <li><strong>Impacto COVID:</strong> La pandemia causó una caída del 86% en migraciones en 2020, seguida de recuperación acelerada</li>
+        <li><strong>Nuevos polos de atracción:</strong> Emiratos Árabes Unidos (+98% crecimiento) desplaza a mercados tradicionales</li>
+    </ul>
+
+    <h3>Preguntas que Guían la Investigación</h3>
+    <div class="highlight">
+        <p><strong>¿Dónde crece la riqueza?</strong> Identificar mercados de alto crecimiento y qué atrae a los millonarios.</p>
+        <p><strong>¿Hacia dónde migran?</strong> Analizar los destinos preferidos y patrones de movimiento.</p>
+        <p><strong>¿Cómo impactó el COVID?</strong> Medir el efecto de la pandemia y la recuperación posterior.</p>
+        <p><strong>¿Dónde se concentra la ultra-riqueza?</strong> Identificar ciudades con mayor densidad de centi-millonarios (USD 100M+).</p>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- 2. DATASET -->
+<div class="section" id="dataset">
+    <h2>2. Descripción del Dataset</h2>
+
+    <h3>Fuente y Enlace</h3>
+    <p><strong>Fuente:</strong> Kaggle - Global Millionaire Migration & Wealth Dataset</p>
+    <p><strong>Licencia:</strong> CC BY-SA 4.0 (Libre para usar y modificar)</p>
+    <p><strong>Enlace:</strong> <code>https://www.kaggle.com/datasets/nelsonpiripiri/global-millionaire-migration-wealth</code></p>
+
+    <h3>Composición del Dataset</h3>
+    <table>
+        <tr>
+            <th>Archivo CSV</th>
+            <th>Registros</th>
+            <th>Variables Clave</th>
+            <th>Propósito</th>
+        </tr>
+        <tr>
+            <td>country_millionaire_migration_2025.csv</td>
+            <td>10 países</td>
+            <td>net_millionaire_migration, estimated_migrating_wealth, growth_pct</td>
+            <td>Flujos netos de migración por país</td>
+        </tr>
+        <tr>
+            <td>top_50_cities_centi_millionaires.csv</td>
+            <td>50 ciudades</td>
+            <td>city, country, centi_millionaires</td>
+            <td>Concentración de ultra-riqueza por ciudad</td>
+        </tr>
+        <tr>
+            <td>global_millionaire_migration_by_year.csv</td>
+            <td>14 años (2013-2026)</td>
+            <td>year, migrating_millionaires, status</td>
+            <td>Evolución temporal e impacto COVID</td>
+        </tr>
+        <tr>
+            <td>fastest_growing_wealth_markets.csv</td>
+            <td>10 mercados</td>
+            <td>country, growth_pct, millionaires, centi_millionaires</td>
+            <td>Mercados de mayor crecimiento</td>
+        </tr>
+    </table>
+
+    <h3>Variables Relevantes</h3>
+    <ul>
+        <li><strong>net_millionaire_migration_2025:</strong> Número neto de millonarios que entran/salen (numérico entero)</li>
+        <li><strong>estimated_migrating_wealth_usd_bn:</strong> Riqueza en billones de USD (numérico decimal)</li>
+        <li><strong>millionaire_growth_pct_2014_2024:</strong> Crecimiento porcentual en 10 años (numérico porcentaje)</li>
+        <li><strong>centi_millionaires:</strong> Cantidad de individuos con USD 100M+ (numérico entero)</li>
+        <li><strong>migrating_millionaires:</strong> Total migrando en año X (numérico entero)</li>
+        <li><strong>status:</strong> Contexto temporal: "Normal", "Coronavirus", "Recovery" (categórico)</li>
+        <li><strong>year:</strong> Año del registro (temporal, 2013-2026)</li>
+        <li><strong>country/city:</strong> Nombre geográfico (categórico, geográfico)</li>
+    </ul>
+
+    <h3>Tipos de Datos Utilizados</h3>
+    <ul>
+        <li><strong>Numéricos:</strong> Flujos, riqueza, percentajes, conteos</li>
+        <li><strong>Categóricos:</strong> Países, ciudades, estado (Normal/COVID)</li>
+        <li><strong>Temporales:</strong> Años (2013-2026), evolución histórica</li>
+        <li><strong>Geográficos:</strong> Coordenadas de países para proyección cartográfica</li>
+    </ul>
+</div>
+
+<div class="page-break"></div>
+
+<!-- 3. HERRAMIENTAS -->
+<div class="section" id="tecnologias">
+    <h2>3. Herramientas y Tecnologías Utilizadas</h2>
+
+    <h3>Stack Tecnológico</h3>
+    <table>
+        <tr>
+            <th>Categoría</th>
+            <th>Herramienta</th>
+            <th>Versión</th>
+            <th>Propósito</th>
+        </tr>
+        <tr>
+            <td>Visualización</td>
+            <td>D3.js</td>
+            <td>v7</td>
+            <td>Gráficos interactivos avanzados (mapas, treemaps, área, radar)</td>
+        </tr>
+        <tr>
+            <td>Frontend</td>
+            <td>HTML5 + CSS3</td>
+            <td>Latest</td>
+            <td>Estructura semántica y diseño responsive (Dark Mode)</td>
+        </tr>
+        <tr>
+            <td>Scripting</td>
+            <td>JavaScript Vanilla</td>
+            <td>ES6+</td>
+            <td>Lógica interactiva sin frameworks (711 líneas comentadas)</td>
+        </tr>
+        <tr>
+            <td>Datos Geoespaciales</td>
+            <td>TopoJSON + World Atlas</td>
+            <td>@2</td>
+            <td>Geometría de países para proyección Natural Earth</td>
+        </tr>
+        <tr>
+            <td>Formato Datos</td>
+            <td>CSV</td>
+            <td>RFC4180</td>
+            <td>4 archivos con datos limpios</td>
+        </tr>
+        <tr>
+            <td>Servidor</td>
+            <td>Python HTTP Server</td>
+            <td>3.9+</td>
+            <td>Servir archivos localmente en puerto 8000</td>
+        </tr>
+        <tr>
+            <td>IDE</td>
+            <td>VS Code</td>
+            <td>Latest</td>
+            <td>Desarrollo y edición</td>
+        </tr>
+    </table>
+
+    <h3>Decisiones Técnicas</h3>
+    <ul>
+        <li><strong>D3.js vs Plotly/Seaborn:</strong> Elegimos D3.js por máxima flexibilidad, interactividad avanzada y capacidad para sincronizar múltiples gráficos en tiempo real.</li>
+        <li><strong>Vanilla JS vs React/Vue:</strong> Sin dependencias externas = menor complejidad, más rápido, ideal para data viz.</li>
+        <li><strong>Dark Mode:</strong> Mejora legibilidad de visualizaciones y reduce fatiga visual.</li>
+        <li><strong>Proyección Natural Earth:</strong> Preserva áreas terrestres con mínima distorsión (mejor que Mercator para análisis global).</li>
+    </ul>
+</div>
+
+<div class="page-break"></div>
+
+<!-- 4. NARRATIVA -->
+<div class="section" id="narrativa">
+    <h2>4. Narrativa con Datos: La Historia de la Riqueza Global</h2>
+
+    <h3>Acto I: La Era de la Globalización (2013-2019)</h3>
+    <p><strong>Contexto:</strong> Pre-pandemia, bonanza económica global.</p>
+    <ul>
+        <li>Millonarios migraban en números crecientes (promedio 51K/año)</li>
+        <li>USA, UK, Suiza eran destinos principales (mercados maduros confiables)</li>
+        <li>China experimentaba salida neta importante (capital flight)</li>
+        <li><strong>Contexto geopolítico:</strong> Tensiones comerciales China-USA, Brexit en 2016, estabilidad relativa en Occidente</li>
+    </ul>
+    <p><strong>Insight:</strong> La riqueza se mueve hacia democracias estables con sistemas legales probados.</p>
+
+    <h3>Acto II: El Shock del COVID (2020-2021)</h3>
+    <p><strong>Crisis global:</strong> Pandemia de Coronavirus causa colapso.</p>
+    <ul>
+        <li><strong>Caída del 86%:</strong> 51K migrantes (2019) → 12K (2020). Es el mayor colapso en migraciones de capital.</li>
+        <li><strong>Incertidumbre:</strong> Cerrar fronteras, cierre de mercados financieros, pánico</li>
+        <li><strong>Sectores afectados:</strong> Viajes, retail, hotelería (donde concentra riqueza)</li>
+        <li><strong>Paradoja:</strong> Tech empresarios con liquidez aceleran reubicación a mercados emergentes</li>
+    </ul>
+    <p><strong>Insight:</strong> Los datos revelan que crisis extremas congelan decisiones de migración, pero crean oportunidades de arbitraje.</p>
+
+    <h3>Acto III: La Recuperación Acelerada (2022-2026)</h3>
+    <p><strong>Recuperación V-shaped:</strong> Post-COVID, nuevo orden económico.</p>
+    <ul>
+        <li><strong>Crecimiento explosivo de nuevos polos:</strong>
+            <ul>
+                <li>🇦🇪 <strong>UAE: +98%</strong> crecimiento (inversión en infraestructura, beneficios fiscales)</li>
+                <li>🇵🇹 <strong>Portugal: +38%</strong> (visa golden, estilo de vida europeo)</li>
+                <li>🇬🇷 <strong>Greece: +24%</strong> (recuperación económica post-crisis)</li>
+            </ul>
+        </li>
+        <li><strong>USA sigue siendo #1:</strong> 7,500 millonarios entrando en 2025 ($43.7B)</li>
+        <li><strong>Salidas netas (fuga de capital):</strong> China -8,900 (politización), India -5,200 (impuestos altos)</li>
+        <li><strong>Nuevas tendencias:</strong> Nomadismo de riqueza, criptomonedas, trabajo remoto de ultra-ricos</li>
+    </ul>
+    <p><strong>Insight:</strong> El mapa de poder económico se redefine. Mercados ágiles con beneficios fiscales atrae capital fluido.</p>
+
+    <h3>El Acto Final: Implicaciones y Reflexiones</h3>
+    <ul>
+        <li><strong>Concentración urbana:</strong> NYC (744), Bay Area (675), Los Ángeles (496) concentran casi 2,000 centi-millonarios.</li>
+        <li><strong>Riesgo de desigualdad:</strong> Capital se va donde hay oportunidad, profundizando brechas.</li>
+        <li><strong>Oportunidad de políticas:</strong> Gobiernos que atajan impuestos y regulaciones atraen inversión.</li>
+        <li><strong>Sostenibilidad:</strong> ¿Pueden los gobiernos crear empleos si el capital se va? Dilema macro.</li>
+    </ul>
+</div>
+
+<div class="page-break"></div>
+
+<!-- 5. VISUALIZACIONES -->
+<div class="section" id="visualizaciones">
+    <h2>5. Visualizaciones: Gráficos y Su Propósito</h2>
+
+    <h3>Gráfico 1: Mapa Geoespacial de Migración (Choropleth)</h3>
+    <p><strong>Tipo:</strong> Mapa coroplético con proyección Natural Earth</p>
+    <p><strong>Datos visualizados:</strong> Entrada neta de millonarios por país en 2025</p>
+    <p><strong>Propósito:</strong> Mostrar geográficamente dónde se concentran flujos de capital</p>
+    <p><strong>Interactividad:</strong></p>
+    <ul>
+        <li>Filtro "Mostrar entradas": Verde = países atrayendo millonarios (USA, UAE, Italia)</li>
+        <li>Filtro "Mostrar salidas": Rojo = mercados de crecimiento rápido (potencial salida)</li>
+        <li>Filtro "Vista global": Gradiente rojo-amarillo-verde por entrada neta</li>
+        <li>Zoom con rueda del ratón</li>
+        <li>Hover = Tooltip con datos específicos</li>
+    </ul>
+    <p><strong>Relación narrativa:</strong> Responde "¿Hacia dónde va el capital?" - La geografía del dinero.</p>
+
+    <h3>Gráfico 2: Treemap de Ciudades (Mapa de Árbol)</h3>
+    <p><strong>Tipo:</strong> Treemap jerárquico con drill-down</p>
+    <p><strong>Datos visualizados:</strong> Top 50 ciudades, tamaño = centi-millonarios (USD 100M+)</p>
+    <p><strong>Propósito:</strong> Revelar concentración de ultra-riqueza a nivel urbano</p>
+    <p><strong>Interactividad:</strong></p>
+    <ul>
+        <li>Filtro por país</li>
+        <li>Hover = Información de ciudad (centi-millonarios exactos)</li>
+        <li>Rectángulos más grandes = ciudades con más ultra-ricos</li>
+    </ul>
+    <p><strong>Hallazgo clave:</strong> NYC (744) es el mayor centro de ultra-riqueza del mundo, 10x más que ciudades de segundo nivel.</p>
+
+    <h3>Gráfico 3: Timeline - Evolución Histórica (Área + Brush)</h3>
+    <p><strong>Tipo:</strong> Gráfico de área con brush sincronizado y play/pause</p>
+    <p><strong>Datos visualizados:</strong> Total migrantes por año 2013-2026, estado (Normal/COVID/Recovery)</p>
+    <p><strong>Propósito:</strong> Contar la historia temporal - impacto COVID y recuperación</p>
+    <p><strong>Interactividad:</strong></p>
+    <ul>
+        <li>Filtro Normal/COVID/Todos los años</li>
+        <li>Play/Pause para animar años</li>
+        <li>Brush para seleccionar rango temporal</li>
+        <li>Puntos interactivos: pasar mouse = Top 5 países ese año</li>
+        <li>Punto rojo = año COVID (2020)</li>
+    </ul>
+    <p><strong>Relación narrativa:</strong> Visualiza la caída del 86% en 2020 y recuperación acelerada - el quiebre de la historia.</p>
+
+    <h3>Gráfico 4: Radar - Perfil de Riqueza (Multidimensional)</h3>
+    <p><strong>Tipo:</strong> Gráfico radar con 4 dimensiones normalizadas</p>
+    <p><strong>Dimensiones:</strong> Crecimiento %, Millonarios totales, Centi-millonarios, Billonarios</p>
+    <p><strong>Propósito:</strong> Comparar perfiles de riqueza entre países en múltiples aspectos</p>
+    <p><strong>Interactividad:</strong></p>
+    <ul>
+        <li>Multi-select de hasta 4 países</li>
+        <li>Colores diferentes por país</li>
+        <li>Hover = Valores exactos</li>
+    </ul>
+    <p><strong>Ejemplo:</strong> UAE (polígono rojo) destaca en crecimiento %, USA (azul) en cantidad absoluta.</p>
+
+    <h3>Gráfico 5: Bubble Chart - Simulación de Fuerzas (Bonus)</h3>
+    <p><strong>Tipo:</strong> Gráfico de burbujas con simulación física</p>
+    <p><strong>Datos visualizados:</strong> Ciudades, tamaño = centi-millonarios, color = país</p>
+    <p><strong>Propósito:</strong> Visualizar relaciones y clústeres de riqueza urbana</p>
+    <p><strong>Interactividad:</strong></p>
+    <ul>
+        <li>Drag para mover burbujas</li>
+        <li>Hover = Información ciudad</li>
+        <li>Física: fuerzas de colisión evitan solapamientos</li>
+    </ul>
+</div>
+
+<div class="page-break"></div>
+
+<!-- 6. RESULTADOS -->
+<div class="section" id="resultados">
+    <h2>6. Resultados y Conclusiones</h2>
+
+    <h3>Hallazgos Principales</h3>
+
+    <div class="highlight">
+        <p><span class="stat">+98%</span> Crecimiento de millonarios en UAE 2014-2024 (mayor del mundo)</p>
+    </div>
+
+    <div class="highlight">
+        <p><span class="stat">9,800</span> Millonarios netos entrando a USA en 2025 (sigue siendo polo principal)</p>
+    </div>
+
+    <div class="highlight">
+        <p><span class="stat">-86%</span> Caída en migración 2020 vs 2019 (impacto COVID documentado)</p>
+    </div>
+
+    <div class="highlight">
+        <p><span class="stat">744</span> Centi-millonarios en NYC (mayor concentración urbana de ultra-riqueza)</p>
+    </div>
+
+    <h3>Descubrimientos por Dimensión</h3>
+
+    <h4>1. Geografía del Capital</h4>
+    <ul>
+        <li><strong>Polo tradicional (USA):</strong> Sigue siendo destino #1 con 7,500 netos + $43.7B</li>
+        <li><strong>Emergencia asiática (UAE):</strong> Crecimiento más rápido, atrae empresarios tech e inversores</li>
+        <li><strong>Fuga de China:</strong> -8,900 netos (2ª economía del mundo pierde millonarios)</li>
+        <li><strong>Nicho europeo:</strong> Portugal, Italia, Grecia atrae clase media-alta buscando estilo de vida europeo</li>
+    </ul>
+
+    <h4>2. Temporal (Impacto COVID)</h4>
+    <ul>
+        <li><strong>2013-2019:</strong> Crecimiento constante (50K-60K/año migrantes)</li>
+        <li><strong>2020:</strong> Caída catastrófica a 12K (-86%)</li>
+        <li><strong>2021-2026:</strong> Recuperación V-shaped, alcanzando 165K en 2026 (máximo histórico)</li>
+        <li><strong>Conclusión:</strong> Crisis acelera reubicación (revaluación de riesgo-país)</li>
+    </ul>
+
+    <h4>3. Concentración Urbana</h4>
+    <ul>
+        <li><strong>Top 3 ciudades:</strong> NYC (744) + Bay Area (675) + LA (496) = 1,915 centi-millonarios (cuasi-monopolio)</li>
+        <li><strong>Clustering:</strong> USA domina, pero Singapur (180) emerge en Asia</li>
+        <li><strong>Implicación:</strong> Riqueza ultra-concentrada crea clusters de inversión</li>
+    </ul>
+
+    <h3>Implicaciones Geopolíticas</h3>
+    <p><strong>Para gobiernos:</strong> Competencia fiscal por capital. USA baja impuestos → atrae millonarios. UAE flexible con visas → emerge como destino. Gobiernos deben equilibrar tributación con atracción de inversión.</p>
+    
+    <p><strong>Para ciudades:</strong> NYC consolidada, pero nuevos competidores (Dubai, Miami) emergen ofreciendo beneficios.</p>
+    
+    <p><strong>Para la economía global:</strong> Riqueza se va donde hay oportunidad. Crea ciclos virtuosos (Silicon Valley) pero también desigualdad regional.</p>
+
+    <h3>Reflexiones Finales</h3>
+    <ul>
+        <li><strong>Volatilidad del capital:</strong> Los datos muestran que la riqueza es móvil. Crisis como COVID aceleran reubicación.</li>
+        <li><strong>Nuevos polos:</strong> El mapa de poder económico se redibuja. Mercados ágiles ganan, burocráticos pierden.</li>
+        <li><strong>Sostenibilidad:</strong> Si capital sale, empleos sufren. Dilema para gobiernos: atracción vs. equidad.</li>
+        <li><strong>Futuro (2026-2030):</strong> Probable continuación de diversificación. UAE seguirá creciendo, USA se mantendrá, y nuevos mercados (crypto-friendly) pueden emerger.</li>
+    </ul>
+
+    <h3>Posibles Acciones Basadas en Datos</h3>
+    <p><strong>Para inversores:</strong> Seguir flujos de millonarios como proxy de oportunidad (donde va el dinero inteligente, hay upside)</p>
+    <p><strong>Para gobiernos:</strong> Análisis de costo-beneficio de políticas tributarias y de visa</p>
+    <p><strong>Para ciudades:</strong> Competencia por talento y capital requiere diferenciación (NYC = tech, Dubai = lujo, etc.)</p>
+</div>
+
+<div class="page-break"></div>
+
+<!-- CIERRE -->
+<div class="section" style="text-align: center; background-color: #f0f7ff; padding: 40px;">
+    <h2>Conclusión General</h2>
+    <p style="font-size: 16px; line-height: 2;">La migración de millonarios no es aleatoria. Es un fenómeno de datos, guiado por geografía política, oportunidades fiscales y estabilidad geopolítica. Los gráficos interactivos revelan patrones que los números solos nunca mostrarían: la riqueza global se mueve en tiempo real, respondiendo a incentivos, crisis y oportunidades.</p>
+    <p style="font-size: 14px; color: #666; margin-top: 30px;">Dashboard interactivo disponible en: <code>http://localhost:8000</code></p>
+</div>
+
+<div class="footer">
+    <p>Documentación generada: 27 de enero de 2026 | Data Storytelling Project | Versión 1.0</p>
+</div>
+
+</body>
+</html>

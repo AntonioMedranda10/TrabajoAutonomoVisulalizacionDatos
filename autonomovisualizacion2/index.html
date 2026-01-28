@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Wealth Migration Dashboard</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/topojson@3"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="hero">
+            <div>
+                <nav class="top-nav">
+                    <a href="#map-section">Mapa</a>
+                    <a href="#treemap-section">Treemap</a>
+                    <a href="#line-section">Timeline</a>
+                    <a href="#radar-section">Radar</a>
+                </nav>
+                <div class="badge">Narrativa con Datos · Migración y Riqueza (2013-2026)</div>
+                <h1>Global Wealth Migration Dashboard</h1>
+                <p>Historia interactiva sobre cómo se mueven los millonarios y cómo se concentra la riqueza por países y ciudades. Datos de Kaggle (Global Millionaire Migration & Wealth, 2013-2026).</p>
+                <div class="controls">
+                    <div class="control"><strong>Fuente:</strong> Kaggle · CC BY-SA 4.0</div>
+                    <div class="control"><strong>Herramienta:</strong> D3.js (SVG, zoom, filtros)</div>
+                    <div class="control"><strong>Dataset:</strong> 4 archivos CSV (país, ciudad, tiempo, crecimiento)</div>
+                </div>
+                <div class="kpi-row">
+                    <div class="kpi"><small>Top entrada neta 2025</small><strong id="kpi-inflow">—</strong></div>
+                    <div class="kpi"><small>Top salida neta 2025</small><strong id="kpi-outflow">—</strong></div>
+                    <div class="kpi"><small>Ciudad con más centi-millonarios</small><strong id="kpi-city">—</strong></div>
+                    <div class="kpi"><small>Mercado más rápido 2014-24</small><strong id="kpi-growth">—</strong></div>
+                </div>
+            </div>
+            <div class="control" style="height:100%;">
+                <strong>📊 Preguntas Clave</strong>
+                <ul>
+                    <li><strong>¿Dónde crece la riqueza?</strong> UAE lidera con +98% de crecimiento, desplazando a mercados tradicionales.</li>
+                    <li><strong>¿Hacia dónde migran?</strong> EE.UU., Italia y Suiza reciben el mayor flujo neto; China e India ven salidas.</li>
+                    <li><strong>¿Cómo impactó el COVID?</strong> Caída del 86% (2020), recuperación acelerada desde 2022.</li>
+                    <li><strong>¿Qué ciudades concentran ultra-riqueza?</strong> NYC (744), Bay Area (675), Los Ángeles (496) mantienen dominio.</li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="grid-container">
+            <div class="chart-card full-width" id="map-section">
+                <div class="split">
+                    <div>
+                        <h2>Migración de Millonarios (2025)</h2>
+                        <p><strong>Lógica clara:</strong> El mapa muestra dónde entran/salen millonarios. 🟢 <strong>Mostrar entradas</strong> = Top 10 países que atraen millonarios (USA, UAE, Italia). 📈 <strong>Mostrar salidas</strong> = Top 10 mercados de más rápido crecimiento (potencial salida). 🌍 <strong>Vista global</strong> = Gradiente de entrada neta (rojo=salida, amarillo=neutral, verde=entrada).</p>
+                        <div class="controls">
+                            <label>Vista:
+                                <select id="map-mode">
+                                    <option value="all">Todos</option>
+                                    <option value="inflow">Top entradas</option>
+                                    <option value="outflow">Top salidas</option>
+                                </select>
+                            </label>
+                            <label>Top N:
+                                <input type="range" id="map-top" min="5" max="20" value="12">
+                                <span class="pill" id="map-top-label">Top 12</span>
+                            </label>
+                        </div>
+                        <div class="story-steps">
+                            <button data-step="inflow">Mostrar entradas</button>
+                            <button data-step="outflow">Mostrar salidas</button>
+                            <button data-step="all">Vista global</button>
+                            <button id="map-auto" class="ghost">Auto story</button>
+                        </div>
+                        <div id="map-container"></div>
+                        <div class="legend">
+                            <div class="legend-bar"></div>
+                            <span class="pill">Salida</span>
+                            <span class="pill">Neutral</span>
+                            <span class="pill">Entrada</span>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <strong>Lectura rápida</strong>
+                        <p id="map-insight" style="margin-top:8px; color: var(--text-light);"></p>
+                        <div id="top-list"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-card" id="treemap-section">
+                <h2>Concentración de Centi-Millonarios</h2>
+                <p>Treemap jerárquico del top 50 ciudades con ultra-riqueza (USD 100M+). Tamaño = cantidad de centi-millonarios. Filtro por país. Hover interactivo con detalles. Visualiza donde se concentra la riqueza extrema a nivel urbano.</p>
+                <div class="controls">
+                    <label>Filtrar por país:
+                        <select id="treemap-country"></select>
+                    </label>
+                </div>
+                <div id="treemap-container"></div>
+            </div>
+
+            <div class="chart-card" id="line-section">
+                <h2>Evolución Histórica 2013-2026</h2>
+                <p>Gráfico de área con brush sincronizado. Visualiza la explosión de migraciones desde 2013 (51K → 165K proyectado 2026). Muestra el crater COVID (2020: 12K). Play/Pause para animar el rango temporal. Filtro por escenario (Normal/COVID).</p>
+                <div class="controls">
+                    <label>Escenario:
+                        <select id="line-filter">
+                            <option value="all">Todos</option>
+                            <option value="Normal">Solo normal</option>
+                            <option value="Coronavirus">Impacto Covid</option>
+                        </select>
+                    </label>
+                    <div class="story-steps">
+                        <button id="line-play">Play</button>
+                        <button id="line-reset" class="ghost">Reset</button>
+                    </div>
+                </div>
+                <div id="line-container"></div>
+            </div>
+
+            <div class="chart-card full-width" id="radar-section">
+                <h2>Perfil de Crecimiento y Ultra Riqueza</h2>
+                <p>Gráfico radar normalizado que compara hasta 4 países simultáneamente en 4 dimensiones: Crecimiento %, Millonarios (1M+), Centi-millonarios (100M+) y Billonarios (1B+). Preselecciona top 4 por crecimiento. Reveal: los mercados emergentes (UAE, Malta, Polonia) superan EE.UU. en tasa de crecimiento.</p>
+                <div class="controls">
+                    <label>Selecciona hasta 4 países (Ctrl/Cmd para múltiples):
+                        <select id="radar-select" multiple size="5" style="min-width:240px;"></select>
+                    </label>
+                </div>
+                <div id="radar-container"></div>
+            </div>
+
+            <div class="chart-card full-width" id="bubble-section">
+                <h2>Explorador de Ciudades: Bubble Chart</h2>
+                <p>Visualización de burbujas interactivas donde cada ciudad es un nodo. Tamaño = concentración de centi-millonarios. Color = país. Simulación de fuerzas para evitar solapamiento. Hover para ver detalles. Grafico bonus con transiciones fluidas.</p>
+                <div id="bubble-container"></div>
+            </div>
+
+            <div class="chart-card full-width" style="background: rgba(47,129,247,0.08); border: 1px dashed var(--stroke);">
+                <h2>📖 Justificación del Dataset</h2>
+                <p><strong>¿Por qué este tema importa?</strong> La migración de millonarios es un indicador clave de salud económica y geopolítica. Entre 2013-2026, el mundo ha visto un reordenamiento radical de poder económico:</p>
+                <ul style="margin: 12px 0; color: var(--muted);">
+                    <li><strong>2013:</strong> Paradigma occidental: NYC, Londres y Suiza dominan. Apenas 51,000 migraciones anuales.</li>
+                    <li><strong>2014-2019:</strong> Crecimiento sostenido (+116%), impulsado por auge financiero y globalización post-crisis 2008.</li>
+                    <li><strong>2020-2021 (COVID):</strong> Caída del 86%. El cierre de fronteras y volatilidad financiera paralizan movimientos.</li>
+                    <li><strong>2022-2026:</strong> Recuperación +98% en 4 años. Mercados emergentes (UAE: +98%, Malta: +87%, Polonia: +82%) superan a economías maduras.</li>
+                    <li><strong>Implicación geopolítica:</strong> Fuga de capitales en China (-) vs. atracción en UAE (+9,800). Refleja desconfianza política y búsqueda de seguridad fiscal.</li>
+                </ul>
+                <p><em>Fuente:</em> Kaggle Global Millionaire Migration & Wealth (2013-2026) | <em>Relevancia:</em> Este fenómeno precede cambios macroeconómicos y geopolíticos majores, siendo un proxy de confianza empresarial global.</p>
+            </div>
+        </div>
+    </main>
+
+    <div id="tooltip" class="tooltip"></div>
+    <script src="main.js"></script>
+</body>
+</html>
